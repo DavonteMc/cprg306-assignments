@@ -74,7 +74,7 @@ export default function ItemList() {
   };
 
   return (
-    <ol>
+    <ol className="w-1/3">
       <Item
         name={item1.name}
         quantity={item1.quantity}
