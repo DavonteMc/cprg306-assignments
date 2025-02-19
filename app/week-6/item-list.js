@@ -12,33 +12,15 @@ export default function ItemList() {
 
   const handleSortSelection = (e) => {
     setSortBy(e);
-    if (e === "name") {
-      items.sort((a, b) => a.name.localeCompare(b.name));
-      return items;
-    }
-    if (e === "category") {
-      items.sort((a, b) => a.category.localeCompare(b.category));
-      return items;
-    }
   };
 
-  const groupByCategory = (array, objAttribute) => {
+  const groupByCategory = (array, key) => {
     return array.reduce((acc, obj) => {
-      const objAttributeValue = obj[objAttribute];
-      if (!acc[objAttributeValue]) {
-        acc[objAttributeValue] = [];
+      const keyValue = obj[key];
+      if (!acc[keyValue]) {
+        acc[keyValue] = [];
       }
-
-      // simplify for only one category i.e. item.category to sort by
-      // Object.keys(obj)
-      //   returns -- The keys/attributes of the object
-
-      // Object.keys(obj) - then isolate and sort the individual values
-
-      // Object.values(obj)
-      //   returns -- The values of the object
-
-      acc[objAttributeValue].push(obj);
+      acc[keyValue].push(obj);
       return acc;
     }, {});
   };
@@ -47,47 +29,83 @@ export default function ItemList() {
 
   return (
     <div>
-      <div className="w-3/4">
-        <h2>Sort By:</h2>
-        <button
-          className={`w-1/3 ${sortBy === "name" ? "bg-slate-800" : ""}`}
-          onClick={() => {
-            handleSortSelection("name");
-          }}
-        >
-          Name
-        </button>
-        <button
-          className={`w-1/3 ${sortBy === "category" ? "bg-slate-800" : ""}`}
-          onClick={() => {
-            handleSortSelection("category");
-          }}
-        >
-          Category
-        </button>
-        <button
-          className={`w-1/3 ${sortBy === "group" ? "bg-slate-800" : ""}`}
-          onClick={() => {
-            handleSortSelection("group");
-          }}
-        >
-          Group Category
-        </button>
+      <div className="w-full">
+        <h2 className="text-base mb-3">Sort By:</h2>
+        <div className="items-center mb-3 text-lg">
+          <button
+            className={`w-1/3 p-2 border-slate-900 border-2 ${
+              sortBy === "name" ? "bg-slate-800" : ""
+            }`}
+            onClick={() => {
+              handleSortSelection("name");
+            }}
+          >
+            Name
+          </button>
+          <button
+            className={`w-1/3 p-2 border-slate-900 border-2 ${
+              sortBy === "category" ? "bg-slate-800" : ""
+            }`}
+            onClick={() => {
+              handleSortSelection("category");
+            }}
+          >
+            Category
+          </button>
+          <button
+            className={`w-1/3 p-2 border-slate-900 border-2 ${
+              sortBy === "group" ? "bg-slate-800" : ""
+            }`}
+            onClick={() => {
+              handleSortSelection("group");
+            }}
+          >
+            Group Category
+          </button>
+        </div>
         <ul>
-          {sortBy === "name" ? items.map((item) => (
-            <Item
-              key={item.id}
-              name={item.name}
-              quantity={item.quantity}
-              category={item.category}
-            />)) : items.sort((a, b) => a.category.localeCompare(b.category)).map((item) => (
-              <Item
-              key={item.id}
-              name={item.name}
-              quantity={item.quantity}
-              category={item.category}
-            />
-          ))}
+          {sortBy === "name"
+            ? items.map((item) => (
+                <Item
+                  key={item.id}
+                  name={item.name}
+                  quantity={item.quantity}
+                  category={item.category}
+                />
+              ))
+            : sortBy === "category"
+            ? items
+                .sort((a, b) => a.category.localeCompare(b.category))
+                .map((item) => (
+                  <Item
+                    key={item.id}
+                    name={item.name}
+                    quantity={item.quantity}
+                    category={item.category}
+                  />
+                ))
+            : Object.keys(itemsByCategory)
+                .sort((a, b) => a.localeCompare(b))
+                .map((category) => (
+                  <div
+                    key={category}
+                    className="flex-col pb-1 mb-3 bg-slate-800"
+                  >
+                    <p className="pt-1 pb-1 pl-2 text-xl font-semibold capitalize">
+                      {category}
+                    </p>
+                    {itemsByCategory[category]
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((item) => (
+                        <Item
+                          key={item.id}
+                          name={item.name}
+                          quantity={item.quantity}
+                          category={item.category}
+                        />
+                      ))}
+                  </div>
+                ))}
         </ul>
       </div>
     </div>
