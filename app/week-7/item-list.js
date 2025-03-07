@@ -1,12 +1,11 @@
 "use client";
 
-import itemData from "./items.json"; // automatically converts the json to array
 import Item from "./item";
 import { useState } from "react";
 
-export default function ItemList() {
+export default function ItemList({ itemList }) {
   const [sortBy, setSortBy] = useState("name");
-  let items = [...itemData];
+  let items = [...itemList]; // Use let when the value on the right side of the equals changes to something else
 
   items.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -31,13 +30,10 @@ export default function ItemList() {
     <div>
       <div className="w-full">
         <h2 className="text-base mb-3">Sort By:</h2>
-        <div className="items-center mb-3 text-lg">
-
-          {/* Note for repeated CSS: 1-Fine, 2-OK, 3 times create a component that 
-          takes in a sortBy and handleSortSelection prop */}
+        <div className="flex items-center gap-2 mb-3 text-lg">
           <button
-            className={`w-1/3 p-2 border-slate-900 border-2 ${
-              sortBy === "name" ? "bg-slate-800" : ""
+            className={`w-1/3 p-2 border-slate-900 rounded-xl border-2 ${
+              sortBy === "name" ? "bg-indigo-600" : ""
             }`}
             onClick={() => {
               handleSortSelection("name");
@@ -46,8 +42,8 @@ export default function ItemList() {
             Name
           </button>
           <button
-            className={`w-1/3 p-2 border-slate-900 border-2 ${
-              sortBy === "category" ? "bg-slate-800" : ""
+            className={`w-1/3 p-2 border-slate-900 rounded-xl border-2 ${
+              sortBy === "category" ? "bg-indigo-600" : ""
             }`}
             onClick={() => {
               handleSortSelection("category");
@@ -56,8 +52,8 @@ export default function ItemList() {
             Category
           </button>
           <button
-            className={`w-1/3 p-2 border-slate-900 border-2 ${
-              sortBy === "group" ? "bg-slate-800" : ""
+            className={`w-1/3 p-2 border-slate-900 rounded-xl border-2 ${
+              sortBy === "group" ? "bg-indigo-600" : ""
             }`}
             onClick={() => {
               handleSortSelection("group");
