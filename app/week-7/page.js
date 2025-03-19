@@ -30,7 +30,6 @@ export default function Page() {
   const [keyIngredient, setKeyIngredient] = useState("");
   const [ingredients, setIngredients] = useState({});
 
-  // const mealIds = meals.filter((meal) => meal.idMeal);
   const generateID = () => {
     let ids = items.map((item) => item.id);
     let newId = Math.max(...ids) + 1;
@@ -52,33 +51,6 @@ export default function Page() {
     }
     setMeals(loadedMeals);
   };
-
-  // const loadIngredients = async (e) => {
-  //   const mealObj = await fetchIngredients(e.target.value);
-  //   const ingredientsList = [
-  //     mealObj.strIngredient1 + " " + mealObj.strMeasure1,
-  //     mealObj.strIngredient2 + " " + mealObj.strMeasure2,
-  //     mealObj.strIngredient3 + " " + mealObj.strMeasure3,
-  //     mealObj.strIngredient4 + " " + mealObj.strMeasure4,
-  //     mealObj.strIngredient5 + " " + mealObj.strMeasure5,
-  //     mealObj.strIngredient6 + " " + mealObj.strMeasure6,
-  //     mealObj.strIngredient7 + " " + mealObj.strMeasure7,
-  //     mealObj.strIngredient8 + " " + mealObj.strMeasure8,
-  //     mealObj.strIngredient9 + " " + mealObj.strMeasure9,
-  //     mealObj.strIngredient10 + " " + mealObj.strMeasure10,
-  //     mealObj.strIngredient11 + " " + mealObj.strMeasure11,
-  //     mealObj.strIngredient12 + " " + mealObj.strMeasure12,
-  //     mealObj.strIngredient13 + " " + mealObj.strMeasure13,
-  //     mealObj.strIngredient14 + " " + mealObj.strMeasure14,
-  //     mealObj.strIngredient15 + " " + mealObj.strMeasure15,
-  //     mealObj.strIngredient16 + " " + mealObj.strMeasure16,
-  //     mealObj.strIngredient17 + " " + mealObj.strMeasure17,
-  //     mealObj.strIngredient18 + " " + mealObj.strMeasure18,
-  //     mealObj.strIngredient19 + " " + mealObj.strMeasure19,
-  //     mealObj.strIngredient20 + " " + mealObj.strMeasure20,
-  //   ];
-  //   setIngredients(ingredientsList);
-  // };
 
   useEffect(() => {
     loadMeals(keyIngredient);
