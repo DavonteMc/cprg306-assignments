@@ -6,8 +6,18 @@ export default function Page() {
   const { user } = useUserAuth();
 
   if (!user) {
-    return <h1>Access Denied</h1>;
+    return (
+      <div className="p-4 items-center text-white bg-indigo-950">
+        <h1 className="text-3xl font-bold p-2">Access Denied</h1>
+      </div>
+    );
   }
-
-  <h1>You're signed in</h1>;
+  return (
+    <div>
+      <div className="p-4 items-center text-white bg-indigo-950">
+        <h1 className="text-3xl font-bold p-2">Access Granted</h1>
+        <p className="text-lg p-2">{user.displayName}</p>
+      </div>
+    </div>
+  );
 }

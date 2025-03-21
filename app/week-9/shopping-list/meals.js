@@ -8,7 +8,7 @@ export default function Meals({
   onMealSelection,
 }) {
   return (
-    <div className="w-2/5 bg-gray-800 p-4 rounded-lg">
+    <div className=" bg-gray-800 p-4 rounded-lg">
       <div className="items-center justify-center flex-col">
         <h2 className="ml-30 text-xl font-bold mb-2">Meal Ideas</h2>
         {mealList === null ? (

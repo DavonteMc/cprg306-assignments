@@ -5,6 +5,7 @@ import NewItem from "./new-item";
 import itemData from "./items.json";
 import Meals from "./meals";
 import { useState, useEffect } from "react";
+import { useUserAuth } from "../_utils/auth-context";
 
 async function fetchMeals(ingredient) {
   if (ingredient === "") {
@@ -49,6 +50,7 @@ async function fetchIngredients(id) {
 }
 
 export default function Page() {
+  const { user, firebaseSignOut } = useUserAuth();
   const [items, setItems] = useState(itemData);
   const [meals, setMeals] = useState([]);
   const [keyIngredient, setKeyIngredient] = useState("");
@@ -97,21 +99,39 @@ export default function Page() {
   return (
     <main className="p-4 items-center text-white bg-indigo-950">
       <h1 className="text-3xl font-bold p-2">Shopping List</h1>
+
+      <div className="flex justify-between">
+        {user && (
+          <h2 className="text-xl font-bold inline p-2">
+            Hello, {user.displayName}
+          </h2>
+        )}
+        <button
+          className={
+            "w-1/6 h-1/5 p-2 rounded-xl mb-4 hover:bg-indigo-600 active:bg-indigo-400 bg-indigo-300 font-semibold"
+          }
+          onClick={firebaseSignOut}
+        >
+          Sign Out
+        </button>
+      </div>
       <div className="flex gap-4">
-        <div className=" w-2/5 bg-gray-800 p-4 rounded-lg">
+        <div className="w-1/2 bg-gray-800 p-4 rounded-lg">
           <NewItem onAddItem={handleAddItem} />
           <ItemList
             onIngrdntSelection={handleIngrdntSelection}
             itemList={items}
           />
         </div>
-        <Meals
-          mealList={meals}
-          mainIngredient={keyIngredient}
-          ingredientList={ingredients}
-          selectedMeal={selectedMeal}
-          onMealSelection={handleMealSelection}
-        />
+        <div className="w-1/2">
+          <Meals
+            mealList={meals}
+            mainIngredient={keyIngredient}
+            ingredientList={ingredients}
+            selectedMeal={selectedMeal}
+            onMealSelection={handleMealSelection}
+          />
+        </div>
       </div>
     </main>
   );

@@ -1,30 +1,32 @@
 "use client";
 
 import { useUserAuth } from "./_utils/auth-context";
-import { Redirect } from 'react-router-dom';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Page() {
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const { user, gitHubSignIn } = useUserAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/week-9/shopping-list");
+    };
+    }, [user]);
 
   return (
     <div className="p-4 items-center text-white bg-indigo-950">
       <h1 className="text-3xl font-bold p-2">Welcome to the Home Page</h1>
       {user ? (
-        <div>
-          <p>Hello, {user.displayName}</p>
-          <button
-            className={
-              "w-1/3 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400bg-indigo-300  text-black font-semibold"
-            }
-            onClick={firebaseSignOut}
-          >
-            Sign Out
-          </button>
+        <div className="flex flex-col gap-6 ">
+          <p className="text-lg p-2">Hello, {user.displayName}</p>
+          
         </div>
       ) : (
         <button
           className={
-            "w-1/3 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400bg-indigo-300  text-black font-semibold"
+            "w-1/3 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400 bg-indigo-300 font-semibold"
           }
           onClick={gitHubSignIn}
         >
@@ -34,3 +36,22 @@ export default function Page() {
     </div>
   );
 }
+
+{/* <div className="w-1/3 flex flex-col gap-6 items-center">
+            <Link
+              className={
+                "w-full p-2 rounded-xl text-center text-2xl mb-2 hover:bg-indigo-600 active:bg-indigo-400 bg-indigo-300 font-bold"
+              }
+              href="week-9/shopping-list"
+            >
+              Shopping List
+            </Link>
+            <button
+              className={
+                "w-1/2 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400 bg-indigo-300 font-semibold"
+              }
+              onClick={firebaseSignOut}
+            >
+              Sign Out
+            </button>
+          </div> */}
