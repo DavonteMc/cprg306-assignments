@@ -8,4 +8,8 @@ export default function Page() {
     if (!user) {
         return <h1>Access Denied</h1>;
     }
+    else {
+        return <Redirect to="/shopping-list" />;
+    }
+    
 }
