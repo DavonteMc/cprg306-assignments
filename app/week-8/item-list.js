@@ -27,10 +27,10 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
   const itemsByCategory = groupByCategory(items, "category");
 
   return (
-    <div className="mt-5">
+    <div className="mt-8">
       <div className="w-full">
         <div className="items-center justify-center flex">
-          <h2 className="ml-30 text-xl font-bold mb-3">Sort By</h2>
+          <h2 className="ml-30 text-2xl font-bold mb-3">Sort By</h2>
         </div>
         <div className="flex items-center gap-2 mb-3 text-lg">
           <button
@@ -44,7 +44,7 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
             Name
           </button>
           <button
-            className={`w-1/3 p-2  rounded-xl hover:bg-indigo-600 active:bg-indigo-400 ${
+            className={`w-1/3 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400 ${
               sortBy === "category"
                 ? "bg-indigo-300 text-black font-semibold"
                 : "bg-slate-900 text-white"
