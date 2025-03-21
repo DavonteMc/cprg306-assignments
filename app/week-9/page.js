@@ -31,7 +31,6 @@ export default function Page() {
           Sign In with GitHub
         </button>
       )}
-      { user && (<Redirect to="/secure" />) }
     </div>
   );
 }
