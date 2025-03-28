@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function ItemList({ itemList, onIngrdntSelection }) {
   const [sortBy, setSortBy] = useState("name");
-  let items = itemList === null ? null : [...itemList]; // Use let when the value on the right side of the equals changes to something else
+  let items = itemList === null ? null : [...itemList];
   let itemsByCategory = null;
 
   if (items !== null) {
@@ -17,10 +17,9 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
     if (items !== null) {
       setSortBy(e);
     }
-  
   };
 
-  // Group By Category Function 
+  // Group By Category Function
   const groupByCategory = (array, key) => {
     return array.reduce((acc, obj) => {
       const keyValue = obj[key];
@@ -35,7 +34,6 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
   if (items !== null) {
     itemsByCategory = groupByCategory(items, "category");
   }
-  
 
   return (
     <div className="mt-8">
@@ -43,11 +41,15 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
         <div className="items-center justify-center flex">
           <h2 className="ml-30 text-2xl font-bold mb-3">Sort By</h2>
         </div>
+
+        {/* Sorting Buttons */}
         <div className="flex items-center gap-2 mb-3 text-lg">
           {/* Sort By Name Button */}
           <button
             className={`w-1/3 p-2 rounded-xl hover:bg-indigo-600 active:bg-indigo-400 ${
-              sortBy === "name" ? "bg-indigo-300  text-black font-semibold" : "bg-slate-900 text-white"
+              sortBy === "name"
+                ? "bg-indigo-300  text-black font-semibold"
+                : "bg-slate-900 text-white"
             }`}
             onClick={() => {
               handleSortSelection("name");
@@ -82,6 +84,8 @@ export default function ItemList({ itemList, onIngrdntSelection }) {
             Group Category
           </button>
         </div>
+
+        {/* List of Items */}
         <div className="mt-10">
           <ul>
             {sortBy === "name" && items !== null

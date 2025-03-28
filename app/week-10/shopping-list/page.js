@@ -77,11 +77,13 @@ export default function Page() {
 
   // Load Data Functions
   const loadItems = async () => {
-    const itemsList = await getItems(user.uid);
-    if (itemsList === null) {
-      setItems([]);
+    if (user != null ) {
+      const userItems = await getItems(user.uid);
+      if (userItems === null) {
+        setItems([]);
+      }
+      setItems(userItems);
     }
-    setItems(itemsList);
   }
 
   const loadMeals = async (keyIngredient) => {
@@ -109,7 +111,8 @@ export default function Page() {
 
   useEffect(() => {
     loadItems();
-  }, [items]);
+  }, [user, items]);
+
 
   return (
     <main>
@@ -132,6 +135,7 @@ export default function Page() {
       </div>
       <div className="flex gap-4">
         <div className="w-1/2 bg-gray-800 p-4 rounded-lg">
+
           <NewItem onAddItem={handleAddItem} />
           <ItemList
             onIngrdntSelection={handleIngrdntSelection}
